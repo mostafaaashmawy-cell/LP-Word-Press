@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Estate Leads CRM Dashboard â€” Irtkaz</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    body {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      min-height: 100vh;
+      font-family: var(--font-sans);
+    }
+    .crm-wrapper {
+      max-width: 1240px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .crm-header {
+      background: #091524;
+      padding: 24px 30px;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 25px rgba(9, 21, 36, 0.15);
+      margin-bottom: 24px;
+      color: #ffffff;
+    }
+    .crm-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .crm-header h1 {
+      font-size: 24px;
+      margin: 0;
+      font-weight: 700;
+    }
+    .crm-header p {
+      color: #94a3b8;
+      font-size: 13.5px;
+      margin: 4px 0 0 0;
+    }
+    .crm-header-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-action {
+      background: #2563eb;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-action:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #ffffff;
+      padding: 20px 24px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .stat-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    /* Table Container */
+    .table-card {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+      overflow: hidden;
+    }
+    .table-toolbar {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+    }
+    .search-input {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      width: 280px;
+      font-size: 13.5px;
+      font-family: inherit;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    thead th {
+      background: #f8fafc;
+      padding: 14px 18px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    tbody td {
+      padding: 16px 18px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    tbody tr:hover {
+      background: #f8fafc;
+    }
+    .lead-name {
+      font-weight: 700;
+      color: #0f172a;
+      display: block;
+    }
+    .lead-meta {
+      font-size: 12px;
+      color: #64748b;
+    }
+    .btn-wa-direct {
+      background: #25D366;
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-wa-direct:hover {
+      background: #20bd5a;
+      transform: scale(1.05);
+    }
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="crm-wrapper">
+    <!-- Header -->
+    <div class="crm-header">
+      <div>
+        <span class="crm-badge">LIVE LEADS CRM</span>
+        <h1>City Gate New Cairo â€” Inquiries Dashboard</h1>
+        <p>Real-time view of client registrations, phone numbers, and WhatsApp routing.</p>
+      </div>
+      <div class="crm-header-actions">
+        <a href="/" class="btn-action btn-outline">&larr; View Landing Page</a>
+        <button id="btnExportCSV" class="btn-action">Download CSV / Excel</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Total Leads</span>
+        <span class="stat-val" id="statTotal">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Project</span>
+        <span class="stat-val" style="font-size: 20px;">City Gate</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Developer</span>
+        <span class="stat-val" style="font-size: 20px;">Qatari Diar</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Conversion Channel</span>
+        <span class="stat-val" style="font-size: 20px; color: #16a34a;">Direct / Paid Ads</span>
+      </div>
+    </div>
+
+    <!-- Leads Table -->
+    <div class="table-card">
+      <div class="table-toolbar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by name or phone...">
+        <button id="btnClearData" style="background: none; border: none; color: #ef4444; font-size: 12px; cursor: pointer; font-weight: 600;">Clear Demo Leads</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Client Name</th>
+            <th>Phone Number</th>
+            <th>Submission Date</th>
+            <th>Source Page</th>
+            <th style="text-align: right;">Quick Action</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTableBody">
+          <!-- Injected via JavaScript -->
+        </tbody>
+      </table>
+
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <h3>No Inquiries Yet</h3>
+        <p>Submit the lead form on the landing page to see new leads appear here in real-time.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tableBody = document.getElementById('leadsTableBody');
+      const emptyState = document.getElementById('emptyState');
+      const statTotal = document.getElementById('statTotal');
+      const searchInput = document.getElementById('searchInput');
+      const btnExportCSV = document.getElementById('btnExportCSV');
+      const btnClearData = document.getElementById('btnClearData');
+
+      function getLeads() {
+        return JSON.parse(localStorage.getItem('properties_z_citygate_leads') || '[]');
+      }
+
+      function renderLeads(filter = '') {
+        const leads = getLeads();
+        tableBody.innerHTML = '';
+
+        const filtered = leads.filter(l => {
+          const q = filter.toLowerCase();
+          return (l.fullName || '').toLowerCase().includes(q) || (l.phoneNumber || '').includes(q);
+        });
+
+        statTotal.textContent = leads.length;
+
+        if (filtered.length === 0) {
+          emptyState.style.display = 'block';
+          return;
+        } else {
+          emptyState.style.display = 'none';
+        }
+
+        filtered.reverse().forEach((lead, index) => {
+          const tr = document.createElement('tr');
+          const cleanPhone = (lead.phoneNumber || '').replace(/[^0-9]/g, '');
+          const waMsg = encodeURIComponent(`Hello ${lead.fullName || 'Client'}, thank you for inquiring about City Gate New Cairo. Are you available for a quick consultation?`);
+          const waLink = `https://wa.me/${cleanPhone}?text=${waMsg}`;
+
+          const dateStr = lead.submissionDate ? new Date(lead.submissionDate).toLocaleString() : 'Just now';
+
+          tr.innerHTML = `
+            <td><strong>#${leads.length - index}</strong></td>
+            <td>
+              <span class="lead-name">${lead.fullName || 'Anonymous'}</span>
+              <span class="lead-meta">${lead.project || 'City Gate New Cairo'}</span>
+            </td>
+            <td>
+              <strong>${lead.phoneNumber || '-'}</strong>
+            </td>
+            <td>${dateStr}</td>
+            <td><span class="lead-meta">${lead.landingPageUrl ? 'Direct Form' : 'Main Hero'}</span></td>
+            <td style="text-align: right;">
+              <a href="${waLink}" target="_blank" class="btn-wa-direct">
+                WhatsApp Chat &rarr;
+              </a>
+            </td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      }
+
+      searchInput.addEventListener('input', (e) => {
+        renderLeads(e.target.value);
+      });
+
+      btnClearData.addEventListener('click', () => {
+        if (confirm('Clear stored demo inquiries?')) {
+          localStorage.removeItem('properties_z_citygate_leads');
+          renderLeads();
+        }
+      });
+
+      btnExportCSV.addEventListener('click', () => {
+        const leads = getLeads();
+        if (leads.length === 0) {
+          alert('No leads to export.');
+          return;
+        }
+
+        let csv = 'ID,Full Name,Phone Number,Project,Submission Date\n';
+        leads.forEach((l, i) => {
+          csv += `${i + 1},"${l.fullName || ''}","${l.phoneNumber || ''}","${l.project || 'City Gate'}","${l.submissionDate || ''}"\n`;
+        });
+
+        const blob = new Blob(["\ufeff" + csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `citygate-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+        a.click();
+      });
+
+      // Initial render
+      renderLeads();
+    });
+  </script>
+</body>
+</html>
+
